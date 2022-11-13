@@ -179,3 +179,23 @@ sim_t_test = function(n = 30, mu, sigma = 5) {
 }
 
 ```
+
+### Generate 5000 datasets from the model with mu=0 
+
+```{r}
+sim_results_mu0 =
+  expand_grid(
+    mu_value = 0,
+    iter = 1:5000
+  ) %>% 
+  mutate(
+    estimate_df = map(.x = mu_value, ~sim_t_test(mu = .x))
+  ) %>% 
+  unnest(estimate_df)
+```
+
+
+
+
+
+
