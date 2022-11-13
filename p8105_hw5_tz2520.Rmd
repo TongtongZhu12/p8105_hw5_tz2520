@@ -49,6 +49,10 @@ longi_df =
     names_to = "week",
     names_prefix = "week_",
     values_to = "observation"
+  ) %>% 
+  mutate(
+    id = as.character(id),
+    week = as.numeric(week)
   )
 
 longi_df
@@ -58,12 +62,12 @@ longi_df
 
 ```{r}
 longi_df %>% 
-  ggplot(aes(x = week, y = observation, group = id, color = arm)) +
-  geom_path() +
+  ggplot(aes(x = week, y = observation, type = id, color = arm)) +
+  geom_line() +
   labs(
       x = "Week",
       y = "Observation",
-      title = "Observations for subjects in experimental and control groups for each week"
+      title = "Observations for subjects by group each week"
       )
 ```
 
@@ -95,6 +99,8 @@ homicide_df =
       disposition == "Closed by arrest"      ~ "solved"
     )) %>% 
   relocate(city_state)
+
+homicide_df
       
 ```
 
