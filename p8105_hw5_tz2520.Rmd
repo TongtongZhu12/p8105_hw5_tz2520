@@ -69,6 +69,15 @@ longi_df %>%
 
 In general, the observation values of the experimental group continue to increase, while the observation values of the control group are relatively stable over time. On average, the observation values of the experimental group are higher than those of the control group. The difference of observations between two groups gradually increases from week 2.
 
+## Problem 2
+
+### Describe the raw data
+
+```{r, message = FALSE}
+homicide_raw = read_csv("./data_homi/homicide-data.csv")
+```
+
+The `homicide_raw` dataset contains information collected by the *Washington Post* on criminal homicides over the past decade in 50 of the largest US cities. It contains `r nrow(homicide_raw)` observations and `r ncol(homicide_raw)` variables. The key variables include `r colnames(homicide_raw)`.
 
 
 
