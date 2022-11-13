@@ -11,8 +11,8 @@ library(tidyverse)
 knitr::opts_chunk$set(
 	echo = TRUE,
 	warning = FALSE,
-  fig.width = 6,
-  fig.asp = .6,
+  fig.width = 8,
+  fig.height = 6,
   out.width = "90%"
 )
 theme_set(theme_minimal() + theme(legend.position = "bottom"))
@@ -31,7 +31,7 @@ set.seed(1)
 
 ### Create a tidy dataframe and manipulate
 
-```{r,show_col_types = FALSE}
+```{r, message=FALSE}
 longi_df =
   tibble(
     file = list.files("data")) %>% 
@@ -50,6 +50,8 @@ longi_df =
     names_prefix = "week_",
     values_to = "observation"
   )
+
+longi_df
 ```
 
 ### Make a spaghetti plot
