@@ -65,7 +65,9 @@ longi_df %>%
       )
 ```
 
+**Comment on difference**
 
+In general, the observation values of the experimental group continue to increase, while the observation values of the control group are relatively stable over time. On average, the observation values of the experimental group are higher than those of the control group. The difference of observations between two groups gradually increases from week 2.
 
 
 
