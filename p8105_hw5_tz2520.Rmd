@@ -79,6 +79,22 @@ homicide_raw = read_csv("./data_homi/homicide-data.csv")
 
 The `homicide_raw` dataset contains information collected by the *Washington Post* on criminal homicides over the past decade in 50 of the largest US cities. It contains `r nrow(homicide_raw)` observations and `r ncol(homicide_raw)` variables. The key variables include `r colnames(homicide_raw)`.
 
+### Create `city_state` and `resolution` variables 
+
+```{r}
+homicide_df =
+  homicide_raw %>% 
+  mutate(
+    city_state = str_c(city, state, sep = ", "),
+    city_state = recode(city_state, "Tulsa, AL" = "Tulsa, OK"),
+    resolved = case_when(
+      disposition == "Closed without arrest" ~ "unsolved",
+      disposition == "Open/No arrest"        ~ "unsolved",
+      disposition == "Closed by arrest"      ~ "solved"
+    )) %>% 
+  relocate(city_state)
+      
+```
 
 
 
