@@ -195,6 +195,21 @@ sim_results_mu0 =
 ```
 
 
+### Repeat the model with several mu={1,2,3,4,5,6} 
+
+```{r}
+sim_results_mu6 =
+  expand_grid(
+    mu_value = 1:6,
+    iter = 1:5000
+  ) %>% 
+  mutate(
+    estimate_df = map(.x = mu_value, ~sim_t_test(mu = .x))
+  ) %>% 
+  unnest(estimate_df)
+```
+
+
 
 
 
