@@ -110,4 +110,17 @@ homi_summary =
 homi_summary
 ```
 
+### Estimate the proportion of unsolved homicides for Baltimore
+
+```{r}
+balt_prop = 
+  prop.test(
+    x = homi_summary %>% filter(city_state == "Baltimore, MD") %>% pull(homi_unsolved),
+    n = homi_summary %>% filter(city_state == "Baltimore, MD") %>% pull(total_homi)
+  )  
+
+balt_prop %>% 
+  broom::tidy() %>% 
+  select(estimate, conf.low, conf.high)
+```
 
