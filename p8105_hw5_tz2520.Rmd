@@ -124,3 +124,19 @@ balt_prop %>%
   select(estimate, conf.low, conf.high)
 ```
 
+### Estimate proportion and CI for each city
+
+```{r}
+cities_prop = 
+  homi_summary %>%
+  mutate(
+    prop_test = map2(.x = homi_unsolved, .y = total_homi, ~prop.test(x = .x, n = .y)),
+    tidy_test = map(.x = prop_test, ~broom::tidy(.x))
+  ) %>% 
+  select(city_state, tidy_test) %>% 
+  unnest(tidy_test) %>% 
+  select(city_state, estimate, conf.low, conf.high)
+
+cities_prop
+  
+```
