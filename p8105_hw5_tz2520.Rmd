@@ -51,3 +51,23 @@ longi_df =
     values_to = "observation"
   )
 ```
+
+### Make a spaghetti plot
+
+```{r}
+longi_df %>% 
+  ggplot(aes(x = week, y = observation, group = id, color = arm)) +
+  geom_path() +
+  labs(
+      x = "Week",
+      y = "Observation",
+      title = "Observations for subjects in experimental and control groups for each week"
+      )
+```
+
+
+
+
+
+
+
