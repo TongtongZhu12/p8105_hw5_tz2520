@@ -27,3 +27,27 @@ set.seed(1)
 ```
 
 
+## Problem 1
+
+### Create a tidy dataframe and manipulate
+
+```{r,show_col_types = FALSE}
+longi_df =
+  tibble(
+    file = list.files("data")) %>% 
+  mutate(
+    path = str_c("data/", file),
+    data = purrr::map(.x = path, ~read_csv(.x))) %>% 
+  unnest(data) %>% 
+  mutate(id = str_extract(file, "\\d+"),
+         id = as.numeric(id),
+         arm = str_extract(file, "con|exp")) %>% 
+  relocate(id, arm, path,everything()) %>% 
+  mutate(arm = recode(arm, con = "control", exp = "experimental")) %>% 
+  pivot_longer(
+    week_1:week_8,
+    names_to = "week",
+    names_prefix = "week_",
+    values_to = "observation"
+  )
+```
