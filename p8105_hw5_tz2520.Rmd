@@ -140,3 +140,22 @@ cities_prop =
 cities_prop
   
 ```
+
+### Create a plot showing estimates and CIs
+
+```{r}
+cities_prop %>% 
+  mutate(
+    city_state = fct_reorder(city_state, estimate)
+  ) %>% 
+  ggplot(aes(x = city_state, y = estimate)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+   labs(
+    x = "City, State",
+    y = "Proportion of unsolved homicides",
+    title = "Estimated Proportions of Unsolved Homicides with 95% CIs for Each City"
+   )
+```
+
