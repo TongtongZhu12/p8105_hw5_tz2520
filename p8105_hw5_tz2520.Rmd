@@ -159,3 +159,23 @@ cities_prop %>%
    )
 ```
 
+## Problem 3
+
+### Create a function with default vaule
+
+```{r}
+
+sim_t_test = function(n = 30, mu, sigma = 5) {
+  
+  sim_data = tibble(
+    x = rnorm(n, mean = mu, sd = sigma),
+  )
+  
+  sim_data %>% 
+    t.test() %>% 
+    broom::tidy() %>%
+    select(estimate, p.value)
+    
+}
+
+```
