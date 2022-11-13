@@ -236,6 +236,56 @@ sim_results_mu6 %>%
 
 The plot shows that as the true value of μ increases, the proportion of null hypothesis rejected increases, that is, the power increases. As mentioned in the null hypothesis, the mean equals 0, so as the true mean increases, the effect size increases. Therefore, the larger the effect size, the more power the test has.
 
+### Make a plot showing the average estimate of μ vs. its true value 
+
+```{r}
+all_estimate =
+  sim_results_mu6 %>% 
+  group_by(mu_value) %>% 
+  summarize(
+    avg_estimate = mean(estimate)
+  ) 
+```
+
+```{r}
+rejected_estimate =
+sim_results_mu6 %>% 
+  filter(p.value < 0.05) %>% 
+  group_by(mu_value) %>% 
+  summarize(
+    avg_estimate = mean(estimate)
+  ) 
+```
+
+
+```{r}
+all_estimate %>% 
+  ggplot(aes(x = mu_value, y = avg_estimate)) +
+  geom_line(aes(color = "a"), alpha = 0.5) +
+  geom_line(data = rejected_estimate, aes(color = "b"), alpha = 0.5) +
+  scale_color_manual(name = " ", 
+                     values = c("a" = "red","b" = "blue"), 
+                     labels = c("all samples","rejected null samples")) +
+  geom_point(color = "red") +
+  geom_point(data = rejected_estimate, color = "blue") +
+  scale_x_continuous(breaks = 1:6) +
+  scale_y_continuous(breaks = 1:6) +
+   labs(
+     title = "Average estimate of mean for each true value of mean",
+     x = "True value of mean",
+     y = "Average estimate of mean"
+   )
+  
+
+```
+
+
+**Description of the plot**
+
+When true mean μ ={1,2,3}, the sample average of mean across tests for which the null is rejected is not approximately equal to the true mean. When the true mean μ ={4,5,6}, the sample average of mean (null rejected) is approximately equal to the true mean. 
+
+It is because smaller effect size corresponds to smaller power. We reject the null hypothesis when the estimated values of samples are significantly different from the null (μ=0). When the true mean is less than 4, the effect size is relatively small and the power is not big enough to find all the statistically significant difference between samples and true values. So when the true mean is less than 4, not all samples with significant difference are rejected, and thus the sample average of mean (for which the null is rejected) is different with the true mean. However, when the true mean is equal to or larger than 4, the effect size is larger and the power is big enough to find all the statistically significant difference and almost reject all the samples in this case. Therefore, the sample average of mean (for which the null is rejected) equals to the true mean.
+
 
 
 
